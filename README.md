@@ -1,20 +1,34 @@
 # Installation
 
-1. You will first need to pull and run the selenium standalone-chrome docker container.
-
+1. Download the `docker-compose.yaml` file:
    ```shell
-   docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
+   wget https://raw.githubusercontent.com/Smuzzy-waiii/pes_captive_auto_login/main/docker-compose.yaml
    ```
-2. Check if the Selenium Grid UI is running at http://localhost:4444
-
-3. Run the pes-captive-auto-login container
-
-   ```shell
-   docker run -d -e CAPTIVE_USERNAME=<username> -e CAPTIVE_PASSWORD=<password> -e SELENIUM_URL=http://localhost:4444 --name pes-captive --network=host smaranjawalkar/pes-captive-auto-login
+2. Replace the PES captive portal username and password in the `docker-compose.yaml` file.
+   ```yaml
+   ...
+       environment:
+      - CAPTIVE_USERNAME=<username> #replace your captive username here
+      - CAPTIVE_PASSWORD=<password> #replace your captive password here
+   ...
    ```
-
-   The **--host=network** part is very important. Without this, the captive container wont be able to talk to the selenium container. 
-
-   _Remember to key in your username and password_
+   **Make sure you use valid username and password, check manually once from the same machine before using**
+3. Run the tool using docker compose
+   ```
+   $ sudo docker compose up -d
+   [+] Building 0.0s (0/0)                                                                                                 
+   [+] Running 3/3
+    ✔ Network pes-captive_default              Created                                                                                     0.8s 
+    ✔ Container pes-captive-auto-login-1       Started                                                                                     5.7s 
+    ✔ Container pes-captive-selenium-chrome-1  Started                                                                                     6.7s 
+   ```
+   _Note: your exact container names may differ_
+4. Make sure the auto-login and selenium-chrome containers are running
+   ```
+   $ sudo docker ps
+   CONTAINER ID   IMAGE                                   COMMAND                  CREATED         STATUS         PORTS                                                 NAMES
+   4be5e6ca7e87   selenium/standalone-chrome              "/opt/bin/entry_poin…"   2 minutes ago   Up 2 minutes   0.0.0.0:4444->4444/tcp, :::4444->4444/tcp, 5900/tcp   pes-captive-selenium-chrome-1
+   527f256badd3   smaranjawalkar/pes-captive-auto-login   "python -u main.py"      2 minutes ago   Up 2 minutes                                                         pes-captive-auto-login-1
+   ```
 
    
