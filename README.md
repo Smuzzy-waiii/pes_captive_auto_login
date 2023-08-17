@@ -30,5 +30,14 @@
    4be5e6ca7e87   selenium/standalone-chrome              "/opt/bin/entry_poin…"   2 minutes ago   Up 2 minutes   0.0.0.0:4444->4444/tcp, :::4444->4444/tcp, 5900/tcp   pes-captive-selenium-chrome-1
    527f256badd3   smaranjawalkar/pes-captive-auto-login   "python -u main.py"      2 minutes ago   Up 2 minutes                                                         pes-captive-auto-login-1
    ```
-
+5. Test that the auto-login is working
+   ```
+   $ sudo docker exec pes-captive-auto-login-1 python3 captive.py
+   Using username: internship13 and password: internship13 @ http://selenium-chrome:4444
+   Opening Chrome
+   Opened Remote
+   Opened connection
+   Successfully logged in to captive 
+   ```
+   Replace `pes-captive-auto-login-1` with you exact container name (as seen in Step 3 and Step 4)
    
