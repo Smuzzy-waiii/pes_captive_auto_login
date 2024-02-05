@@ -13,3 +13,5 @@ services:
       - CAPTIVE_USERNAME=<username>
       - CAPTIVE_PASSWORD=<password>
       - SELENIUM_URL=http://selenium-chrome:4444
+    depends_on:
+      - selenium-chrome
