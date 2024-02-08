@@ -5,9 +5,19 @@ import time
 
 while True:
 	print("------------------------\nChecking if Internet connected @", get_rn_string())
-	if not is_internet_enabled():
+	net_enabled = False
+	try:
+		net_enabled = is_internet_enabled()
+	except Exception as e:
+		print("Error while checking internet: ", e)
+	
+	if not net_enabled:
 		print("Unable to connect, Attempting captive login now")
-		captive_login()
+		try:
+			captive_login()
+		except Exception as e:
+		 	print("Error during captive login: ", e)
+
 	else:
 		print("Able to successfully connect to internet.")
 
