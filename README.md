@@ -1,3 +1,5 @@
+# PES Captive Auto-Login
+An application to keep your in-campus servers always logged in to the captive portal :D
 # Installation
 
 1. Download the `docker-compose.yaml` file:
